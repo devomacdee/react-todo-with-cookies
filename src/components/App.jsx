@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import { addReminder, deleteReminder } from '../actions'
+import { addReminder, deleteReminder, clearReminders } from '../actions'
 import moment from 'moment'
 
 class App extends Component {
@@ -53,7 +53,7 @@ class App extends Component {
                    placeholder="I have to..."
                    onChange={event => this.setState({text: event.target.value})}/>
                  <input className="form-control"
-                        type="dateTime-local"
+                        type="date"
                         onChange={event => this.setState({dueDate: event.target.value})}/>
           </div>
           <button type="button"
@@ -63,6 +63,10 @@ class App extends Component {
           </button>
         </div>
         { this.renderReminders() }
+        <div className="btn btn-danger"
+             onClick={() => this.props.clearReminders()}>
+          Clear Reminders
+        </div>
       </div>
     )
   }
@@ -78,4 +82,4 @@ function mapStateToProps (state) {
 //   return bindActionCreators({addReminder}, dispatch)
 // }
 
-export default connect(mapStateToProps, { addReminder, deleteReminder })(App)
+export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders })(App)
